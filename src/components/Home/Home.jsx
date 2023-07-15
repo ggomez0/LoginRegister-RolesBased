@@ -1,22 +1,27 @@
-import { Link } from "react-router-dom";
+import { Link , useNavigate} from "react-router-dom";
+import {auth} from "../../firebase"
 
-export function Home(){
-
-    return(        
+function salir() {
+  return auth.signOut()
+  navigate("/");
+}
+export function Home(props) {
+  return (
     <div>
+      <div>
         <div>
-            <div>
-                <h1>
-                    <Link to="/Login">Login</Link>
-                </h1>
-                <br></br>
-                <h1>
-                    <Link to="/Signup">Registrarse</Link>
-                </h1>
-            </div>
+          <h1>
+            <Link to="/Login">Login</Link>
+          </h1>
+          <br />
+          <h1>
+            <Link to="/Signup">Registrar</Link>
+          </h1>
         </div>
-        {/* <h2>{props? `Bienvenido - ${props.name}`:"Iniciar Sesion"}</h2> */}
-
+      </div>
+      <h2>{props.name?`Bienvenido - ${props.name}`:"Inicie sesión"}</h2>
+      <button onClick={salir}>Salir</button>
+     
     </div>
-    );
+  );
 }
