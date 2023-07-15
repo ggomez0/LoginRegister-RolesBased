@@ -1,10 +1,6 @@
 import { Link } from "react-router-dom";
-function Saludo(props) {
-    return <h2>{props.name ? `Bienvenido - ${props.name}` : "Iniciar Sesión"}</h2>;
-  }
 
 export function Home(){
-    const nombreUsuario = ""; // Ejemplo de valor para props.name
 
     return(        
     <div>
@@ -19,7 +15,7 @@ export function Home(){
                 </h1>
             </div>
         </div>
-        <Saludo name={nombreUsuario} />
+        {/* <h2>{props? `Bienvenido - ${props.name}`:"Iniciar Sesion"}</h2> */}
 
     </div>
     );
