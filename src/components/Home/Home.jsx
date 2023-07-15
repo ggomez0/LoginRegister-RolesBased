@@ -1,27 +1,20 @@
-import { Link , useNavigate} from "react-router-dom";
-import {auth} from "../../firebase"
+import React from "react";
 
-function salir() {
-  return auth.signOut()
-  navigate("/");
-}
-export function Home(props) {
+import {AdminView} from "../Admin/AdminView"
+import {UserView} from "../User/UserView"
+
+import { FirebaseApp } from "../../firebase";
+import { getAuth, signOut } from "firebase/auth";
+const auth = getAuth(FirebaseApp);
+
+function Home({ user }) {
   return (
     <div>
-      <div>
-        <div>
-          <h1>
-            <Link to="/Login">Login</Link>
-          </h1>
-          <br />
-          <h1>
-            <Link to="/Signup">Registrar</Link>
-          </h1>
-        </div>
-      </div>
-      <h2>{props.name?`Bienvenido - ${props.name}`:"Inicie sesión"}</h2>
-      <button onClick={salir}>Salir</button>
-     
+      Home
+      <button onClick={() => signOut(auth)}> Cerrar sesión</button>
+      {user.rol === "masteradmin" ? <AdminView /> : <UserView />}
     </div>
   );
 }
+
+export default Home;

@@ -1,11 +1,16 @@
 import styles from "./Login.module.css"
 import { InputControl, InputPass } from "../InputControl/InputControl"
 import { Link,useNavigate } from "react-router-dom"
-import {auth} from "../../firebase"
-import { signInWithEmailAndPassword } from "firebase/auth"
-import { useState } from "react"
+import {FirebaseApp} from "../../firebase"
+import {getAuth, signInWithEmailAndPassword } from "firebase/auth"
+import { getFirestore, doc, collection, setDoc } from "firebase/firestore";
+import React, { useState } from "react";
+
+const auth = getAuth(firebaseApp);
 
 export function Login(){
+    const firestore = getFirestore(firebaseApp);
+
     const navigate = useNavigate();
     const [values, setvalues] = useState({email:"", pass:""})
     const [errorMsg, setErrorMsg] = useState([]);

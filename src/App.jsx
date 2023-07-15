@@ -1,10 +1,11 @@
 import './App.css'
-import { MyRoutes } from './routes/routes'
-import {firebase} from "./firebase"
+import { MyRoutes } from './routes/routes';
+import { firebaseApp } from './firebase';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
-const auth = getAuth(firebase);
-const firestore = getFirestore(firebase);
+
+const auth = getAuth(firebaseApp);
+const firestore = getFirestore(firebaseApp);
 
 function App() {
   const [user, setUser] = useState(null);
@@ -40,13 +41,8 @@ function App() {
     }
   });
 
-  return <>{user ? <Home user={user} /> : <Login />}</>;
-}
-  // return (
-  //      <div>
-  //       <MyRoutes/>
-  //      </div>
-  // )
 
+  return <>{user ? <Home user={user} /> : <Login />}</>;
+  }
 
 export default App

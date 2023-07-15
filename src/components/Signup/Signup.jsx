@@ -18,20 +18,25 @@ export function Signup(){
             }    
     setErrorMsg("");
     setSubmitButtonDisabled(true);
+    
+    async function registrarUsuario(email, password) {
+        const infoUsuario = await createUserWithEmailAndPassword(auth, values.email, values.pass)
+            .then(async (res) => {
+                setSubmitButtonDisabled(false);
+                const user = res.user;
+                await updateProfile(user, {
+                    displayName: values.name,
+                });
+                navigate("/");
+        })
+        .catch((err) =>{
+            setSubmitButtonDisabled(false)
+            setErrorMsg(err.message)
+        });
 
-    createUserWithEmailAndPassword(auth, values.email, values.pass)
-        .then(async (res) => {
-            setSubmitButtonDisabled(false);
-            const user = res.user;
-            await updateProfile(user, {
-                displayName: values.name,
-            });
-            navigate("/");
-    })
-    .catch((err) =>{
-        setSubmitButtonDisabled(false)
-        setErrorMsg(err.message)
-    });
+        const docuRef = doc(firestore, `usuarios/${infoUsuario.user.uid}`);
+        setDoc(docuRef, { correo: email, rol: "user" });
+    }
 };
     return(
     <div className={styles.container}>
