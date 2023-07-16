@@ -6,7 +6,7 @@ import {getAuth, signInWithEmailAndPassword } from "firebase/auth"
 import { getFirestore, doc, collection, setDoc } from "firebase/firestore";
 import React, { useState } from "react";
 
-// const auth = getAuth(firebaseApp);
+ const auth = getAuth(FirebaseApp);
 
 export function Login(){
     const firestore = getFirestore(FirebaseApp);
