@@ -11,52 +11,42 @@ const firestore = getFirestore(FirebaseApp);
 const auth = getAuth(FirebaseApp);
 
 export function Home() {
-  const [user, setUser] = useState([]);
-  const [userName, setUserName] = useState([]);
+  const [user, setUser] = useState(null);
+  const [userName, setUserName] = useState("");
 
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        setUserName(user.displayName);
+        setUserWithFirebaseAndRol(user);
+      } else {
+        setUserName("");
+        setUser(null);
+      }
+    });
+  }, []);
 
-  useEffect(()=>{
-    auth.onAuthStateChanged((user)=>{
-        if (user){
-            setUserName(user.displayName)
-        }
-        else setUserName("")
-    })
-}, [])
-
-async function getRol(uid) {
-  const docuRef = doc(firestore, `usuarios/${uid}`);
-  const docuCifrada = await getDoc(docuRef);
-  const rol_uid = docuCifrada.data().rol;
-  return rol_uid;
-}
-
-function setUserWithFirebaseAndRol(usuarioFirebase) {
-  getRol(usuarioFirebase.uid).then((rol) => {
-    const userData = {
-      uid: usuarioFirebase.uid,
-      email: usuarioFirebase.email,
-      rol: rol,
-    };
-    setUser(userData);
-  });
-}
-
-onAuthStateChanged(auth, (usuarioFirebase) => {
-  if (usuarioFirebase) {  
-    if (!user) {
-      setUserWithFirebaseAndRol(usuarioFirebase);
-    }
-  } 
-  else {
-    setUser(null);
+  async function getRol(uid) {
+    const docuRef = doc(firestore, `usuarios/${uid}`);
+    const docuCifrada = await getDoc(docuRef);
+    const rol_uid = docuCifrada.data().rol;
+    return rol_uid;
   }
-});
 
+  function setUserWithFirebaseAndRol(usuarioFirebase) {
+    getRol(usuarioFirebase.uid).then((rol) => {
+      const userData = {
+        uid: usuarioFirebase.uid,
+        email: usuarioFirebase.email,
+        rol: rol,
+      };
+      setUser(userData);
+    });
+  }
 
   return (
     <div>
-      {user.rol === "admin" ? <AdminView /> : <UserView />} 
+      {user && user.rol === "admin" ? <AdminView /> : <UserView />}
     </div>
   );
 }

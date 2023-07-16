@@ -24,7 +24,7 @@ export function Signup(){
                 });
                 const docuRef = doc(firestore, `usuarios/${user.uid}`);
                  setDoc(docuRef, { correo: email, rol: rol });
-                 navigate("/")
+                 navigate("/Home")
         })
         .catch((err) =>{
             setSubmitButtonDisabled(false)

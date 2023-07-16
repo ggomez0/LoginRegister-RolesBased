@@ -13,8 +13,8 @@ export function MyRoutes(){
     return(
     <Router>
         <Routes>
-            <Route exact path="/Inicio" element={<Inicio/>}/>         
-            <Route exact path="/" element={<Home name={userName}/>}/>
+            <Route exact path="/" element={<Inicio/>}/>         
+            <Route exact path="/Home" element={<Home name={userName}/>}/>
             <Route exact path="/Login" element={<Login/>}/>
             <Route exact path="/Signup" element={<Signup/>}/>
         </Routes>

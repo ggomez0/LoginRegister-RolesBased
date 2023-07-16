@@ -25,7 +25,7 @@ export function Login(){
         signInWithEmailAndPassword(auth, values.email, values.pass)
         .then (async(res)=>{
             setSubmitButtonDisabled(false);
-            navigate("/");
+            navigate("/Home");
         })
         .catch((err)=>{
             setSubmitButtonDisabled(false);
