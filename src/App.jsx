@@ -1,11 +1,13 @@
-import './App.css'
-import { MyRoutes } from './routes/routes';
-import { firebaseApp } from './firebase';
+import React, { useState } from "react";
+import {Home} from "./components/Home/Home"
+import { Signup } from "./components/Signup/Signup";
+
+import {FirebaseApp} from "./firebase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
-
-const auth = getAuth(firebaseApp);
-const firestore = getFirestore(firebaseApp);
+import { MyRoutes } from "./routes/routes";
+const auth = getAuth(FirebaseApp);
+const firestore = getFirestore(FirebaseApp);
 
 function App() {
   const [user, setUser] = useState(null);
@@ -25,24 +27,25 @@ function App() {
         rol: rol,
       };
       setUser(userData);
-      console.log("userData final", userData);
+      console.log("userData fianl", userData);
     });
   }
 
-  onAuthStateChanged(auth, (usuarioFirebase) => {
-    if (usuarioFirebase) {
-      //funcion final
+  // onAuthStateChanged(auth, (usuarioFirebase) => {
+  //   if (usuarioFirebase) {
+  //     //funcion final
 
-      if (!user) {
-        setUserWithFirebaseAndRol(usuarioFirebase);
-      }
-    } else {
-      setUser(null);
-    }
-  });
+  //     if (!user) {
+  //       setUserWithFirebaseAndRol(usuarioFirebase);
+  //     }
+  //   } else {
+  //     setUser(null);
+  //   }
+  // });
 
+  return(<div>
+    <MyRoutes></MyRoutes>
+  </div>)
+}
 
-  return <>{user ? <Home user={user} /> : <Login />}</>;
-  }
-
-export default App
+export default App;

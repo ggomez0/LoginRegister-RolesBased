@@ -6,11 +6,10 @@ import {getAuth, signInWithEmailAndPassword } from "firebase/auth"
 import { getFirestore, doc, collection, setDoc } from "firebase/firestore";
 import React, { useState } from "react";
 
-const auth = getAuth(firebaseApp);
+// const auth = getAuth(firebaseApp);
 
 export function Login(){
-    const firestore = getFirestore(firebaseApp);
-
+    const firestore = getFirestore(FirebaseApp);
     const navigate = useNavigate();
     const [values, setvalues] = useState({email:"", pass:""})
     const [errorMsg, setErrorMsg] = useState([]);
