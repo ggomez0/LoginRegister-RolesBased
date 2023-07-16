@@ -6,7 +6,6 @@ import {InputControl, InputPass} from "../InputControl/InputControl"
 import { FirebaseApp } from "../../firebase"
 import { getFirestore, doc, collection, setDoc } from "firebase/firestore";
 
-
 export function Signup(){
     const navigate = useNavigate();
     const [values, setvalues] = useState({name:"",email:"",pass:""})
@@ -41,8 +40,6 @@ export function Signup(){
         registrarUsuario(values.email, values.pass, "user");
         setErrorMsg("");
         setSubmitButtonDisabled(true);
-        
-       
     }
 
     return(
