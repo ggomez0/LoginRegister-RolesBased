@@ -4,8 +4,9 @@ import { Login } from "../Login/Login";
 export function Inicio(){
     return(
     <div>
-         <Link to="/Login"> Login </Link>
-         <Link to="/Signup"> Register </Link>
+        <h1> <Link to="/Login"> Login </Link>
+         <br></br>
+         <Link to="/Signup"> Register </Link></h1>
     </div>)      
 }
 

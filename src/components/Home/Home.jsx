@@ -13,17 +13,23 @@ const auth = getAuth(FirebaseApp);
 export function Home() {
   const [user, setUser] = useState(null);
   const [userName, setUserName] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    auth.onAuthStateChanged((user) => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         setUserName(user.displayName);
         setUserWithFirebaseAndRol(user);
       } else {
         setUserName("");
         setUser(null);
+        setLoading(false);
       }
     });
+
+    return () => {
+      unsubscribe();
+    };
   }, []);
 
   async function getRol(uid) {
@@ -41,7 +47,12 @@ export function Home() {
         rol: rol,
       };
       setUser(userData);
+      setLoading(false);
     });
+  }
+
+  if (loading) {
+    return <div>Cargando...</div>;
   }
 
   return (
